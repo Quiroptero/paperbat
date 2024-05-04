@@ -36,6 +36,12 @@
 
   {{- if .Content }}
   <div class="post-content">
+    {{ if and (.Param "showLastmod") (not .Lastmod.IsZero) }}
+      {{ $dateString := .Lastmod.Local | time.Format ":date_full" }}
+      <p><i>Actualizado por última vez: <b>{{ $dateString }}</b></i></p>
+      <hr></hr>
+    {{ end }}
+
     {{- if not (.Param "disableAnchoredHeadings") }}
     {{- partial "anchored_headings.html" .Content -}}
     {{- else }}{{ .Content }}{{ end }}
@@ -43,7 +49,7 @@
   {{- end }}
 
   <footer class="post-footer">
-    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+    {{- $tags := .Language.Params.Taxonomies.tag | default "etiquetas" }}
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}
       <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
@@ -52,6 +58,12 @@
     {{- if (.Param "ShowPostNavLinks") }}
     {{- partial "post_nav_links.html" . }}
     {{- end }}
+
+    {{- /* Show related content only in blog posts*/ -}}
+    {{- if (eq .Type "blog") -}}
+    {{- partial "related_content.html" . }}
+    {{- end -}}
+
     {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
     {{- partial "share_icons.html" . -}}
     {{- end }}
