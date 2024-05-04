@@ -58,7 +58,7 @@ body:not(.dark) #sun {
 }
 
 #menu li + li {
-    margin-inline-start: var(--gap);
+    margin-inline-start: var(--gap-menu-items);
 }
 
 #menu a {
