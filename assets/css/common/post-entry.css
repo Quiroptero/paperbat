@@ -36,15 +36,15 @@
 .post-entry {
     position: relative;
     margin-bottom: var(--gap);
-    padding: var(--gap);
+    padding-bottom: var(--gap);
     background: var(--entry);
-    border-radius: var(--radius);
-    transition: transform 0.1s;
+    border-radius: 0;
+    transition: none;
     border: 1px solid var(--border);
 }
 
 .post-entry:active {
-    transform: scale(0.96);
+    transform: none;
 }
 
 .tag-entry .entry-cover {
