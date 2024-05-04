@@ -99,6 +99,10 @@
     padding-inline-start: 20px;
 }
 
+.post-content ul:last-child {
+    margin-bottom: 0;
+}
+
 .post-content li {
     margin-top: 5px;
 }
