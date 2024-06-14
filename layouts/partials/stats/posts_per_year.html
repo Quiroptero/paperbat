@@ -56,7 +56,8 @@
     let yearAvg = [{{ range $scratch.Get "yearAvg" }}{{ . }}, {{end}}];
 
     var options = {
-        type: 'line',
+        plugins: {legend: {position: 'top'}},
+        type: 'bar',
         data: {
             labels: yearKeys,
             datasets: [
@@ -64,17 +65,16 @@
                     label: 'Entradas publicadas',
                     yAxisID: 'A',
                     data: yearCount,
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 3
+                    borderWidth: 3,
+                    order: 1
                 },
                 {
                     label: 'Promedio de palabras',
                     yAxisID: 'B',
                     data: yearAvg,
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 3
+                    borderWidth: 3,
+                    type: 'line',
+                    order: 0
                 }
             ]
         },
@@ -85,31 +85,76 @@
                 A: {
                     beginAtZero: true,
                     position: 'left',
-                    grid: {
-                        display: false
-                    },
-                    ticks: {
-                        stepSize: 5
-                    }
+                    grid: {display: false},
+                    ticks: {stepSize: 5}
                 },
                 B: {
                     beginAtZero: true,
                     position: 'right',
-                    grid: {
-                        display: false
-                    },
-                    ticks: {
-                        stepSize: 200
-                    }
+                    grid: {display: false},
+                    ticks: {stepSize: 200}
                 },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
+                x: {grid: {display: false}}
             }
         }
     };
 
-    new Chart(ctx, options);
+    const statsChart = new Chart(ctx, options)
+
+    var mode = document.getElementById('top')
+    var toDarkMode = mode.className === 'dark'
+    const darkBar = 'rgba(85,221,224)'
+    const darkLine = 'rgba(255,64,0)'
+    const darkLegend = 'rgba(249, 233, 236)'
+    const lightBar = 'rgba(37,19,81)'
+    const lightLine = 'rgba(243,182,31)'
+    const lightLegend = 'rgba(31,39,27)'
+
+    if (toDarkMode) {
+        statsChart.data.datasets[0].backgroundColor = darkBar
+        statsChart.data.datasets[0].borderColor = darkBar
+        statsChart.data.datasets[1].backgroundColor = darkLine
+        statsChart.data.datasets[1].borderColor = darkLine
+        statsChart.options.scales['A'].ticks.color = darkLegend
+        statsChart.options.scales['B'].ticks.color = darkLegend
+        statsChart.options.scales['x'].ticks.color = darkLegend
+        statsChart.options.plugins.legend.labels.color = darkLegend
+    } else {
+        statsChart.data.datasets[0].backgroundColor = lightBar
+        statsChart.data.datasets[0].borderColor = lightBar
+        statsChart.data.datasets[1].backgroundColor = lightLine
+        statsChart.data.datasets[1].borderColor = lightLine
+        statsChart.options.scales['A'].ticks.color = lightLegend
+        statsChart.options.scales['B'].ticks.color = lightLegend
+        statsChart.options.scales['x'].ticks.color = lightLegend
+        statsChart.options.plugins.legend.labels.color = lightLegend
+    }
+    statsChart.update();
+</script>
+<script>
+    document.getElementById("theme-toggle").onclick = function() {
+        var mode = document.getElementById('top')
+        var toDarkMode = mode.className === 'dark'
+        if (toDarkMode) {
+            statsChart.data.datasets[0].backgroundColor = lightBar
+            statsChart.data.datasets[0].borderColor = lightBar
+            statsChart.data.datasets[1].backgroundColor = lightLine
+            statsChart.data.datasets[1].borderColor = lightLine
+            statsChart.options.scales['A'].ticks.color = lightLegend
+            statsChart.options.scales['B'].ticks.color = lightLegend
+            statsChart.options.scales['x'].ticks.color = lightLegend
+            statsChart.options.plugins.legend.labels.color = lightLegend
+
+        } else {
+            statsChart.data.datasets[0].backgroundColor = darkBar
+            statsChart.data.datasets[0].borderColor = darkBar
+            statsChart.data.datasets[1].backgroundColor = darkLine
+            statsChart.data.datasets[1].borderColor = darkLine
+            statsChart.options.scales['A'].ticks.color = darkLegend
+            statsChart.options.scales['B'].ticks.color = darkLegend
+            statsChart.options.scales['x'].ticks.color = darkLegend
+            statsChart.options.plugins.legend.labels.color = darkLegend
+        }
+        statsChart.update();
+    }
 </script>
