@@ -55,6 +55,13 @@
     let yearCount = [{{ range $scratch.Get "yearCount" }}{{ . }}, {{end}}];
     let yearAvg = [{{ range $scratch.Get "yearAvg" }}{{ . }}, {{end}}];
 
+    const darkBar = 'rgba(85,221,224)'
+    const darkLine = 'rgba(255,64,0)'
+    const darkLegend = 'rgba(249, 233, 236)'
+    const lightBar = 'rgba(37,19,81)'
+    const lightLine = 'rgba(243,182,31)'
+    const lightLegend = 'rgba(31,39,27)'
+
     var options = {
         plugins: {legend: {position: 'top'}},
         type: 'bar',
@@ -84,12 +91,18 @@
             scales: {
                 A: {
                     beginAtZero: true,
+                    title: {display: true, text: 'Entradas publicadas'},
                     position: 'left',
                     grid: {display: false},
-                    ticks: {stepSize: 5}
+                    ticks: {stepSize: 5},
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'my label'
+                    }
                 },
                 B: {
                     beginAtZero: true,
+                    title: {display: true, text: 'Promedio de palabras'},
                     position: 'right',
                     grid: {display: false},
                     ticks: {stepSize: 200}
@@ -103,12 +116,6 @@
 
     var mode = document.getElementById('top')
     var toDarkMode = mode.className === 'dark'
-    const darkBar = 'rgba(85,221,224)'
-    const darkLine = 'rgba(255,64,0)'
-    const darkLegend = 'rgba(249, 233, 236)'
-    const lightBar = 'rgba(37,19,81)'
-    const lightLine = 'rgba(243,182,31)'
-    const lightLegend = 'rgba(31,39,27)'
 
     if (toDarkMode) {
         statsChart.data.datasets[0].backgroundColor = darkBar
@@ -116,7 +123,9 @@
         statsChart.data.datasets[1].backgroundColor = darkLine
         statsChart.data.datasets[1].borderColor = darkLine
         statsChart.options.scales['A'].ticks.color = darkLegend
+        statsChart.options.scales['A'].title.color = darkLegend
         statsChart.options.scales['B'].ticks.color = darkLegend
+        statsChart.options.scales['B'].title.color = darkLegend
         statsChart.options.scales['x'].ticks.color = darkLegend
         statsChart.options.plugins.legend.labels.color = darkLegend
     } else {
@@ -125,7 +134,9 @@
         statsChart.data.datasets[1].backgroundColor = lightLine
         statsChart.data.datasets[1].borderColor = lightLine
         statsChart.options.scales['A'].ticks.color = lightLegend
+        statsChart.options.scales['A'].title.color = lightLegend
         statsChart.options.scales['B'].ticks.color = lightLegend
+        statsChart.options.scales['B'].title.color = lightLegend
         statsChart.options.scales['x'].ticks.color = lightLegend
         statsChart.options.plugins.legend.labels.color = lightLegend
     }
@@ -141,7 +152,9 @@
             statsChart.data.datasets[1].backgroundColor = lightLine
             statsChart.data.datasets[1].borderColor = lightLine
             statsChart.options.scales['A'].ticks.color = lightLegend
+            statsChart.options.scales['A'].title.color = lightLegend
             statsChart.options.scales['B'].ticks.color = lightLegend
+            statsChart.options.scales['B'].title.color = lightLegend
             statsChart.options.scales['x'].ticks.color = lightLegend
             statsChart.options.plugins.legend.labels.color = lightLegend
 
@@ -151,7 +164,9 @@
             statsChart.data.datasets[1].backgroundColor = darkLine
             statsChart.data.datasets[1].borderColor = darkLine
             statsChart.options.scales['A'].ticks.color = darkLegend
+            statsChart.options.scales['A'].title.color = darkLegend
             statsChart.options.scales['B'].ticks.color = darkLegend
+            statsChart.options.scales['B'].title.color = darkLegend
             statsChart.options.scales['x'].ticks.color = darkLegend
             statsChart.options.plugins.legend.labels.color = darkLegend
         }
