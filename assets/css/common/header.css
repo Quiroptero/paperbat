@@ -91,3 +91,24 @@ body:not(.dark) #sun {
 .logo-switches {
     flex-wrap: inherit;
 }
+
+.random-quote-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+.random-quote-block blockquote {
+    width: calc(var(--main-width) + var(--gap) * 2);
+    /* Uncomment the following line in case of the vertical bar */
+    /* padding-left: var(--gap); */
+}
+
+.random-quote-block p {
+    padding: 0 14px;
+    /* Uncomment the following line to have a vertical bar */
+    /* border-inline-start: 3px solid var(--primary); */
+    /* Change text-align to left in case of the vertical bar */
+    text-align: center;
+    font-size: 14px;
+    color: var(--secondary);
+}
